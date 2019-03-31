@@ -14,7 +14,26 @@ Roguelike game for Software Design course
 
 ## Use-case diagram
 
-![](docs/design/Use-Case Diagram.png)
+[![use-case][Use_case_diagram]][Use_case_diagram_url]
 
 ## UML class diagram
-![](docs/design/UML Class Diagram.png)
+[![UML][UML_class_diagram]][UML_class_diagram_url]
+
+## Диаграмма конечных автоматов
+Программа может находится в следующих состояниях: главное меню или основной режим уровня, в главном меню выбирается уровень из доступных, после, генерируется карта данного уровня. Персонаж делает ход, после чего он может проиграть, выиграть либо ни то ни другое. В первом случае программа переходит в состояние основного меню, в котором остаются все те же уровни, что и были. Во втором случае добавляются новые уровни, и в последнам случае состояние не меняется и программа в ожидании следующего хода.
+[![states][MainStateDiogram]][MainStateDiogram_url]
+
+
+[Use_case_diagram]: https://github.com/akhvorov/roguelike/blob/design-documents/docs/design/Use-Case%20Diagram.png
+[Use_case_diagram_url]: https://raw.githubusercontent.com/akhvorov/roguelike/design-documents/docs/design/Use-Case%20Diagram.png
+[UML_class_diagram]: https://github.com/akhvorov/roguelike/blob/design-documents/docs/design/UML%20Class%20Diagram.png
+[UML_class_diagram_url]: https://raw.githubusercontent.com/akhvorov/roguelike/design-documents/docs/design/UML%20Class%20Diagram.png
+
+[MainStateDiogram]: https://github.com/akhvorov/roguelike/blob/design-documents/docs/design/MainStateDiogram.png
+[MainStateDiogram_url]: https://raw.githubusercontent.com/akhvorov/roguelike/design-documents/docs/design/MainStateDiogram.png
+
+
+
+
+
+
