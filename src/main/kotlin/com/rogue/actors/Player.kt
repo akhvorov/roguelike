@@ -1,7 +1,7 @@
-package actors
+package com.rogue.actors
 
-import Drawable
-import Point
+import com.rogue.Drawable
+import com.rogue.Point
 
 class Player(point: Point) : Drawable(point, '4', Priority.PLAYER) {
     private var health: Int = 5

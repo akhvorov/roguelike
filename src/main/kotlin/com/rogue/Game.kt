@@ -1,4 +1,4 @@
-
+package com.rogue
 object Game {
     fun run() {
         var level = 1

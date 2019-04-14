@@ -1,4 +1,6 @@
-import actors.Player
+package com.rogue
+
+import com.rogue.actors.Player
 import kotlin.math.sqrt
 import kotlin.random.Random
 
@@ -19,9 +21,9 @@ object MapGenerator {
                 if (map[h][w] != Drawable.Priority.EMPTY) {
                     worldMap[p] = when (map[h][w]) {
                         Drawable.Priority.WALL -> Drawable(p, '0', map[h][w])
-//                        Drawable.Priority.BONUS -> TODO()
-//                        Drawable.Priority.SHOT -> TODO()
-//                        Drawable.Priority.MONSTER -> TODO()
+//                        com.rogue.Drawable.Priority.BONUS -> TODO()
+//                        com.rogue.Drawable.Priority.SHOT -> TODO()
+//                        com.rogue.Drawable.Priority.MONSTER -> TODO()
                         Drawable.Priority.PLAYER -> Player(p)
                         else -> Drawable(p, ' ', map[h][w])
                     }

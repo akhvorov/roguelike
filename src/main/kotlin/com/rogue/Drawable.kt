@@ -1,4 +1,4 @@
-
+package com.rogue
 open class Drawable(protected var point: Point, protected var face: Char, protected val priority: Priority = Priority.WALL) : Comparable<Drawable> {
     enum class Priority {
         EMPTY,

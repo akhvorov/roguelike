@@ -1,4 +1,4 @@
-
+package com.rogue
 abstract class DrawStrategy {
     companion object {
 

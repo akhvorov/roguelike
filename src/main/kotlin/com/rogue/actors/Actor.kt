@@ -1,7 +1,7 @@
-package actors
+package com.rogue.actors
 
-import Drawable
-import Point
+import com.rogue.Drawable
+import com.rogue.Point
 
 class Actor(point: Point, face: Char, priority: Drawable.Priority,
             private val actionStrategy: (Actor, List<Actor>) -> Boolean) : Drawable(point, face, priority) {
