@@ -2,6 +2,9 @@ package com.rogue.strategies
 
 import com.rogue.Actor
 
+/**
+ * Action strategy of player
+ */
 object PlayerStrategy : (Actor, List<Actor>) -> Boolean {
     private var health: Int = 5
 

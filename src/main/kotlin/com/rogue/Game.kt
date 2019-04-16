@@ -1,5 +1,9 @@
 package com.rogue
 
+fun main() {
+    Game.run()
+}
+
 object Game {
     fun run() {
         var level = 1
@@ -12,23 +16,10 @@ object Game {
     private fun runLevel(level: Int): Boolean {
         val worldMap = MapGenerator.generateWorld(level)
         worldMap.draw()
-        while (true) {
-            worldMap.act()
+        while (worldMap.act()) {
             worldMap.draw()
             Thread.sleep(1000)
         }
         return true
     }
-//
-//    private fun strategies(map: MutableMap<Point, Drawable>): MutableList<Actor> {
-//        val strategies = ArrayList<Actor>()
-//        for (point in map.keys) {
-//            if (map[point] is Actor) {
-//                strategies.add(map[point] as Actor)
-//                map.remove(point)
-//            }
-//        }
-//        strategies.sort()
-//        return strategies
-//    }
 }
