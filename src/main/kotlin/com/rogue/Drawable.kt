@@ -10,14 +10,14 @@ open class Drawable(protected var point: Point, protected var face: Char, protec
     }
 
     open fun draw() {
-        drawSymbolOnPoint()
+        drawSymbolOnPoint(face)
     }
 
     override fun compareTo(other: Drawable): Int {
         return priority.compareTo(other.priority)
     }
 
-    fun drawSymbolOnPoint(symbol: Char = face) {
-        println("\u001B[$point.x;$point.yH$symbol")
+    private fun drawSymbolOnPoint(symbol: Char = face) {
+        println("\u001B[${point.x};${point.y}H$symbol")
     }
 }

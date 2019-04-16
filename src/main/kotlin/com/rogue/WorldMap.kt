@@ -1,10 +1,20 @@
 package com.rogue
 
-import java.util.*
-
-class WorldMap(var map: MutableMap<Point, Drawable> = HashMap()) {
+class WorldMap(var map: MutableMap<Point, Drawable>, var actors: MutableList<Actor>) {
 
     fun act() {
+        for (i in 0 until actors.size) {
+            actors[i].act(actors)
+        }
+    }
 
+    fun draw() {
+        print("\u001Bc")
+        for (drawable in map.values) {
+            drawable.draw()
+        }
+        for (actor in actors) {
+            actor.draw()
+        }
     }
 }
