@@ -1,5 +1,5 @@
 package com.rogue
-open class Drawable(protected var point: Point, protected var face: Char, protected val priority: Priority = Priority.WALL) : Comparable<Drawable> {
+open class Drawable(var point: Point, var face: Char, val priority: Priority = Priority.WALL) : Comparable<Drawable> {
     enum class Priority {
         EMPTY,
         WALL,
@@ -20,4 +20,8 @@ open class Drawable(protected var point: Point, protected var face: Char, protec
     private fun drawSymbolOnPoint(symbol: Char = face) {
         println("\u001B[${point.x};${point.y}H$symbol")
     }
+
+//    fun getPoint(): Point {
+//        return point
+//    }
 }

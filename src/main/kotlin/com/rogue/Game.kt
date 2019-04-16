@@ -15,6 +15,7 @@ object Game {
         while (true) {
             worldMap.act()
             worldMap.draw()
+            Thread.sleep(1000)
         }
         return true
     }

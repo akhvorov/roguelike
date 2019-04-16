@@ -11,7 +11,7 @@ object MapGenerator {
     fun generateWorld(level: Int): WorldMap {
         val walls = generateWalls(level)
         val actors = generateActors(walls)
-        return WorldMap(mapToDrawable(walls), actors)
+        return WorldMap(walls, actors)
     }
 
     private fun generateActors(map: MutableList<MutableList<Boolean>>): MutableList<Actor> {
@@ -26,19 +26,6 @@ object MapGenerator {
         val width = Random.nextInt(minSize, (10 * sqrt(level.toDouble() + 1)).toInt())
         val map = generateWalls(height, width)
         return map
-    }
-
-    private fun mapToDrawable(map: MutableList<MutableList<Boolean>>): MutableMap<Point, Drawable> {
-        val worldMap: MutableMap<Point, Drawable> = HashMap()
-        for (h in 0 until map.size) {
-            for (w in 0 until map[h].size) {
-                val p = Point(h, w)
-                if (map[h][w]) {
-                    worldMap[p] = Drawable(p, '0', Drawable.Priority.WALL)
-                }
-            }
-        }
-        return worldMap
     }
 
     private fun player(map: MutableList<MutableList<Boolean>>): Actor {

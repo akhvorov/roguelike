@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
     compile(kotlin("stdlib"))
+    compile("org.jline", "jline", "3.5.1")
     testCompile("org.junit.jupiter", "junit-jupiter-api", "5.2.0")
     testRuntime("org.junit.jupiter", "junit-jupiter-engine", "5.2.0")
 }
