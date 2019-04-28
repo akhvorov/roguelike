@@ -12,6 +12,15 @@ data class Point(val x: Int, val y: Int) {
         Move.RIGHT -> this + (1 on 0)
         Move.STAY -> this
     }
+
+    fun moveToOptions(point: Point): Collection<Move> {
+        val options = HashSet<Move>()
+        if (point.x < x) options += Move.LEFT
+        if (point.x > x) options += Move.RIGHT
+        if (point.y < y) options += Move.UP
+        if (point.y > y) options += Move.DOWN
+        return options
+    }
 }
 
 infix fun Int.on(other: Int) = Point(this, other)
@@ -21,6 +30,15 @@ enum class Move {
     DOWN,
     LEFT,
     RIGHT,
-    STAY
+    STAY;
+
+    val invert: Move
+        get() = when (this) {
+            UP -> DOWN
+            DOWN -> UP
+            LEFT -> RIGHT
+            RIGHT -> LEFT
+            STAY -> STAY
+        }
 }
 

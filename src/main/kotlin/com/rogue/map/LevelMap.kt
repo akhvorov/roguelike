@@ -3,8 +3,7 @@ package com.rogue.map
 import com.rogue.actor.Actor
 import com.rogue.actor.PlayerActor
 import com.rogue.draw.MainScreen
-import com.rogue.utils.Move
-import com.rogue.utils.Point
+import com.rogue.utils.*
 
 /**
  * Map representing level.
@@ -27,8 +26,23 @@ data class LevelMap(val xSize: Int, val ySize: Int, val cells: ArrayList<Cell> =
         return cells.find { it.actor == actor }
     }
 
+    fun getPlayerCell() = get(PlayerActor)!!
+
+    fun getFree(): Set<Point> {
+        val result = HashSet<Point>()
+        for (i in 0 until xSize) {
+            for (j in 0 until ySize) {
+                if (!contains(i on j)) {
+                    result += i on j
+                }
+            }
+        }
+        return result
+    }
+
 
     fun contains(point: Point) = get(point) != null
+    fun contains(actor: Actor) = get(actor) != null
 
     fun add(point: Point, actor: Actor): Boolean {
         require(point.x in 0 until xSize) { "Point exceeds borders of map by an x-axis" }
@@ -56,6 +70,10 @@ data class LevelMap(val xSize: Int, val ySize: Int, val cells: ArrayList<Cell> =
     }
 
     fun remove(actor: Actor): Boolean {
-        return cells.removeIf { it.actor == actor }
+        val removed = cells.removeIf { it.actor == actor }
+        if (removed) {
+            MainScreen.removeActor(actor)
+        }
+        return removed
     }
 }

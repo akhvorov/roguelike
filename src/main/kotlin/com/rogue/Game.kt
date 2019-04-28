@@ -1,5 +1,6 @@
 package com.rogue
 
+import com.rogue.actor.EnemyActor
 import com.rogue.draw.MainScreen
 import com.rogue.map.CollisionService
 import com.rogue.map.MapGenerator
@@ -16,13 +17,19 @@ object Game {
     }
 
     private fun runLevel() {
-        val map = MapGenerator.generateInitialMap()
+        val levelMap = MapGenerator.generateInitialMap()
+
+        EnemyActor.populateMap(levelMap)
 
         while (true) {
-            for (actor in map.cells.map { it.actor }.distinct()) {
-                val proposedMove = actor.act()
-                val realMove = CollisionService.processMove(actor, proposedMove, map)
-                map.move(actor, realMove)
+            for (actor in levelMap.cells.map { it.actor }.distinct()) {
+                if (!levelMap.contains(actor)) continue
+
+                val proposedMove = actor.act(levelMap)
+                val realMove = CollisionService.processMove(actor, proposedMove, levelMap)
+
+                if (!levelMap.contains(actor)) continue
+                levelMap.move(actor, realMove)
             }
 
             Thread.sleep(100)

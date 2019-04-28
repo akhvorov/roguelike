@@ -1,12 +1,13 @@
 package com.rogue.actor
 
+import com.rogue.map.LevelMap
 import com.rogue.utils.Move
 import java.util.*
 
-object PlayerActor : Actor(100, 1, '@') {
+object PlayerActor : Actor(Health(true, 100), 1, '@') {
     private val lazyMovements = ArrayDeque<Move>()
 
-    fun addMovement(move: Move) = lazyMovements.push(move)
+    fun move(move: Move) = lazyMovements.push(move)
 
-    override fun act() = lazyMovements.poll() ?: Move.STAY
+    override fun act(levelMap: LevelMap) = lazyMovements.poll() ?: Move.STAY
 }

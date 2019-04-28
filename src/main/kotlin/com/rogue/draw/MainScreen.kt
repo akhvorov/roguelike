@@ -35,19 +35,19 @@ object MainScreen {
         application.onKeyboardEvent(KeyboardEventType.KEY_PRESSED) { event, _ ->
             when (event.code) {
                 KeyCode.UP -> {
-                    PlayerActor.addMovement(Move.UP)
+                    PlayerActor.move(Move.UP)
                     UIEventResponses.processed()
                 }
                 KeyCode.DOWN -> {
-                    PlayerActor.addMovement(Move.DOWN)
+                    PlayerActor.move(Move.DOWN)
                     UIEventResponses.processed()
                 }
                 KeyCode.LEFT -> {
-                    PlayerActor.addMovement(Move.LEFT)
+                    PlayerActor.move(Move.LEFT)
                     UIEventResponses.processed()
                 }
                 KeyCode.RIGHT -> {
-                    PlayerActor.addMovement(Move.RIGHT)
+                    PlayerActor.move(Move.RIGHT)
                     UIEventResponses.processed()
                 }
                 else -> UIEventResponses.pass()
@@ -64,6 +64,13 @@ object MainScreen {
             Move.LEFT -> presentation.layer.moveLeftBy(1)
             Move.RIGHT -> presentation.layer.moveRightBy(1)
         }
+        return true
+    }
+
+    fun removeActor(actor: Actor): Boolean {
+        val presentation = actorsOnScene[actor] ?: return false
+        application.removeLayer(presentation.layer)
+        actorsOnScene.remove(actor)
         return true
     }
 
