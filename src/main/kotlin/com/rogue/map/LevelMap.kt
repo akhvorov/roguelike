@@ -1,9 +1,9 @@
 package com.rogue.map
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.rogue.actor.Actor
 import com.rogue.draw.GameScreen
 import com.rogue.utils.*
+import kotlinx.serialization.Serializable
 
 /**
  * Map representing level.
@@ -15,12 +15,13 @@ import com.rogue.utils.*
  * |
  * (0, 4)
  */
-@JsonIgnoreProperties(value = ["free", "playerCell"])
+@Serializable
 data class LevelMap(val xSize: Int, val ySize: Int, val cells: ArrayList<Cell> = ArrayList()) {
     companion object {
         lateinit var current: LevelMap
     }
 
+    @Serializable
     data class Cell(var point: Point, val actor: Actor)
 
     operator fun get(point: Point): Cell? {

@@ -1,14 +1,13 @@
 package com.rogue.utils
 
-import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.databind.*
-import com.fasterxml.jackson.databind.util.StdDateFormat
-import com.fasterxml.jackson.module.kotlin.KotlinModule
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonConfiguration
 
-object Json : JsonUtilsHelper(ObjectMapper().also {
-    it.registerModule(KotlinModule())
-    it.dateFormat = StdDateFormat().withColonInTimeZone(true)
-    it.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-    it.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-    it.setSerializationInclusion(JsonInclude.Include.NON_NULL)
-})
+object Json {
+    val jsonMapper = Json(JsonConfiguration.Stable)
+
+    fun writeValueAsString(serializer: KSerializer<Any>, obj: Any): String = jsonMapper.stringify(serializer, obj)
+
+    inline fun <reified T : Any> readValue(serializer: KSerializer<T>, serialized: String): T = jsonMapper.parse(serializer, serialized)
+}

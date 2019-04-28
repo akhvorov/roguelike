@@ -3,10 +3,19 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
 group = "com.rogue"
 version = "1.0-SNAPSHOT"
 
+buildscript {
+    repositories { jcenter() }
+
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-serialization:1.3.31")
+    }
+}
+
 plugins {
     id("tanvd.kosogor") version "1.0.4" apply true
     application apply true
     kotlin("jvm") version "1.3.31" apply true
+    id("kotlinx-serialization") version "1.3.31" apply true
 }
 
 
@@ -20,6 +29,8 @@ dependencies {
 
     compile("org.hexworks.zircon", "zircon.core-jvm", "2019.0.19-PREVIEW")
     compile("org.hexworks.zircon", "zircon.jvm.swing", "2019.0.19-PREVIEW")
+
+    compile("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.11.0")
 
     compile("com.fasterxml.jackson.core", "jackson-core", "2.9.7")
     compile("com.fasterxml.jackson.core", "jackson-databind", "2.9.7")

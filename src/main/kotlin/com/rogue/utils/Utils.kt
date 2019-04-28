@@ -1,10 +1,8 @@
 package com.rogue.utils
 
-import com.fasterxml.jackson.core.type.TypeReference
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.type.TypeFactory
-import kotlin.reflect.KClass
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Point(val x: Int, val y: Int) {
     operator fun plus(other: Point): Point {
         return Point(x + other.x, y + other.y)
@@ -47,22 +45,5 @@ enum class Move {
         }
 }
 
-abstract class JsonUtilsHelper(val jsonMapper: ObjectMapper) {
-    fun writeValueAsString(obj: Any): String = jsonMapper.writeValueAsString(obj)
 
-    fun <T : Any> readValue(serialized: String, klass: KClass<T>): T = jsonMapper.readValue<T>(serialized, klass.java)
-    inline fun <reified T : Any> readValue(serialized: String): T = readValue(serialized, T::class)
-
-    inline fun <reified T : Any> readValue(serialized: String, typeInfo: TypeReference<T>): T = jsonMapper.readValue(serialized, typeInfo)
-
-    inline fun <reified E : Collection<T>, reified T : Any> readCollectionValue(serialized: String): E {
-        val type = TypeFactory.defaultInstance()
-        return jsonMapper.readValue(serialized, type.constructCollectionType(E::class.java, T::class.java))
-    }
-
-    inline fun <reified E : Map<T, K>, reified T : Any, reified K : Any> readMapValue(serialized: String): E {
-        val type = TypeFactory.defaultInstance()
-        return jsonMapper.readValue(serialized, type.constructMapType(E::class.java, T::class.java, K::class.java))
-    }
-}
 

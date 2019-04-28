@@ -1,14 +1,15 @@
 package com.rogue.actor
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.rogue.actor.enemy.EnemyStrategy
 import com.rogue.map.LevelMap
 import com.rogue.utils.Move
+import kotlinx.serialization.Serializable
 import java.util.*
 
 
+@Serializable
 data class Actor(val type: Type, val health: Health, val damage: Int, val face: Char, val id: String = UUID.randomUUID().toString()) {
-    @JsonIgnoreProperties(value = ["dead"])
+    @Serializable
     data class Health(val destroyable: Boolean, var hp: Int) {
         val isDead: Boolean
             get() = hp <= 0
@@ -32,6 +33,7 @@ data class Actor(val type: Type, val health: Health, val damage: Int, val face: 
         Type.OtherEnemy -> EnemyStrategy.NotMyBusiness.act(this, levelMap)
     }
 
+    //Override with UUID usage only
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

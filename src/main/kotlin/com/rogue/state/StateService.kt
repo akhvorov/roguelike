@@ -4,6 +4,7 @@ import com.rogue.draw.GameScreen
 import com.rogue.map.LevelMap
 import com.rogue.map.MapGenerator
 import com.rogue.utils.Json
+import kotlinx.serialization.KSerializer
 import java.io.File
 
 object StateService {
@@ -21,7 +22,7 @@ object StateService {
             LevelMap.current = MapGenerator.generateInitialMap()
             save()
         } else {
-            LevelMap.current = Json.readValue(mapStorage.readText())
+            LevelMap.current = Json.readValue(LevelMap.serializer(), mapStorage.readText())
         }
         LevelMap.current.reinitScreen()
     }
@@ -31,6 +32,6 @@ object StateService {
             mapStorage.createNewFile()
         }
 
-        mapStorage.writeText(Json.writeValueAsString(LevelMap.current))
+        mapStorage.writeText(Json.writeValueAsString(LevelMap.serializer() as KSerializer<Any>, LevelMap.current))
     }
 }
