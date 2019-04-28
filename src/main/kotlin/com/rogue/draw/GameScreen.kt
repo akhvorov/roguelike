@@ -1,8 +1,9 @@
 package com.rogue.draw
 
-import com.rogue.GameConfig
+import com.rogue.Game
 import com.rogue.actor.Actor
 import com.rogue.actor.PlayerActor
+import com.rogue.state.StateService
 import com.rogue.utils.Move
 import com.rogue.utils.Point
 import org.hexworks.zircon.api.*
@@ -13,26 +14,17 @@ import org.hexworks.zircon.api.graphics.Layer
 import org.hexworks.zircon.api.uievent.KeyCode
 import org.hexworks.zircon.api.uievent.KeyboardEventType
 
-object MainScreen {
+object GameScreen {
     data class ActorPresentation(val layer: Layer, val tile: CharacterTile)
+
+    private var initialized = false
 
     private val actorsOnScene = HashMap<Actor, ActorPresentation>()
 
-    private val application by lazy {
-        SwingApplications.startTileGrid(
-                AppConfigs.newConfig()
-                        .withSize(Sizes.create(GameConfig.sizeX, GameConfig.sizeY))
-                        .build())
-    }
-
     fun init() {
-        application
-    }
+        if (initialized) return
 
-    fun registerPlayer(point: Point, actor: PlayerActor): ActorPresentation {
-        val presentation = registerActor(point, actor)
-
-        application.onKeyboardEvent(KeyboardEventType.KEY_PRESSED) { event, _ ->
+        Application.gameScreen.onKeyboardEvent(KeyboardEventType.KEY_PRESSED) { event, _ ->
             when (event.code) {
                 KeyCode.UP -> {
                     PlayerActor.move(Move.UP)
@@ -50,10 +42,25 @@ object MainScreen {
                     PlayerActor.move(Move.RIGHT)
                     UIEventResponses.processed()
                 }
+                KeyCode.ESCAPE -> {
+                    StateService.save()
+                    Game.isMenu = true
+                    UIEventResponses.processed()
+                }
                 else -> UIEventResponses.pass()
             }
         }
-        return presentation
+
+        initialized = true
+    }
+
+    fun display() = Application.gameScreen.display()
+
+    fun clear() {
+        for (actor in actorsOnScene.keys.toSet()) {
+            removeActor(actor)
+        }
+        actorsOnScene.clear()
     }
 
     fun moveActor(actor: Actor, move: Move): Boolean {
@@ -69,7 +76,7 @@ object MainScreen {
 
     fun removeActor(actor: Actor): Boolean {
         val presentation = actorsOnScene[actor] ?: return false
-        application.removeLayer(presentation.layer)
+        Application.gameScreen.removeLayer(presentation.layer)
         actorsOnScene.remove(actor)
         return true
     }
@@ -89,7 +96,7 @@ object MainScreen {
                 .build()
                 .fill(actorTile)
 
-        application.pushLayer(layer)
+        Application.gameScreen.pushLayer(layer)
 
         actorsOnScene[actor] = ActorPresentation(layer, actorTile)
 

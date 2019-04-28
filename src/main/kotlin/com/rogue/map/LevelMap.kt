@@ -1,8 +1,8 @@
 package com.rogue.map
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.rogue.actor.Actor
-import com.rogue.actor.PlayerActor
-import com.rogue.draw.MainScreen
+import com.rogue.draw.GameScreen
 import com.rogue.utils.*
 
 /**
@@ -15,7 +15,12 @@ import com.rogue.utils.*
  * |
  * (0, 4)
  */
+@JsonIgnoreProperties(value = ["free", "playerCell"])
 data class LevelMap(val xSize: Int, val ySize: Int, val cells: ArrayList<Cell> = ArrayList()) {
+    companion object {
+        lateinit var current: LevelMap
+    }
+
     data class Cell(var point: Point, val actor: Actor)
 
     operator fun get(point: Point): Cell? {
@@ -26,7 +31,7 @@ data class LevelMap(val xSize: Int, val ySize: Int, val cells: ArrayList<Cell> =
         return cells.find { it.actor == actor }
     }
 
-    fun getPlayerCell() = get(PlayerActor)!!
+    fun getPlayerCell() = cells.find { it.actor.type == Actor.Type.Player }!!
 
     fun getFree(): Set<Point> {
         val result = HashSet<Point>()
@@ -52,19 +57,21 @@ data class LevelMap(val xSize: Int, val ySize: Int, val cells: ArrayList<Cell> =
 
         cells.add(Cell(point, actor))
 
-        if (actor is PlayerActor) {
-            MainScreen.registerPlayer(point, actor)
-        } else {
-            MainScreen.registerActor(point, actor)
-        }
+        GameScreen.registerActor(point, actor)
 
         return true
+    }
+
+    fun reinitScreen() {
+        for ((point, actor) in cells) {
+            GameScreen.registerActor(point, actor)
+        }
     }
 
     fun move(actor: Actor, move: Move): Boolean {
         val cell = get(actor)!!
         cell.point = cell.point.apply(move)
-        MainScreen.moveActor(actor, move)
+        GameScreen.moveActor(actor, move)
 
         return true
     }
@@ -72,7 +79,7 @@ data class LevelMap(val xSize: Int, val ySize: Int, val cells: ArrayList<Cell> =
     fun remove(actor: Actor): Boolean {
         val removed = cells.removeIf { it.actor == actor }
         if (removed) {
-            MainScreen.removeActor(actor)
+            GameScreen.removeActor(actor)
         }
         return removed
     }

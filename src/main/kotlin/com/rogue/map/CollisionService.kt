@@ -17,7 +17,7 @@ object CollisionService {
 
         val otherActor = levelMap[point.apply(move)]?.actor ?: return move
 
-        if (!otherActor.health.isDestroyable) {
+        if (!otherActor.health.destroyable) {
             return Move.STAY
         }
 

@@ -3,6 +3,7 @@ package com.rogue.map
 import com.rogue.GameConfig
 import com.rogue.actor.PlayerActor
 import com.rogue.actor.WallActor
+import com.rogue.actor.enemy.EnemyActor
 import com.rogue.utils.Point
 import com.rogue.utils.on
 import kotlin.random.Random
@@ -15,12 +16,14 @@ object MapGenerator {
         for ((x, isWallArr) in generatedMap.withIndex()) {
             for ((y, isWall) in isWallArr.withIndex()) {
                 if (isWall) {
-                    map.add(x on y, WallActor())
+                    map.add(x on y, WallActor.default)
                 }
             }
         }
 
-        map.add(1 on 1, PlayerActor)
+        map.add(map.getFree().random(), PlayerActor.default)
+
+        EnemyActor.populateMap(map)
 
         return map
     }

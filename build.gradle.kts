@@ -20,7 +20,10 @@ dependencies {
 
     compile("org.hexworks.zircon", "zircon.core-jvm", "2019.0.19-PREVIEW")
     compile("org.hexworks.zircon", "zircon.jvm.swing", "2019.0.19-PREVIEW")
-    compile("org.jline", "jline", "3.5.1")
+
+    compile("com.fasterxml.jackson.core", "jackson-core", "2.9.7")
+    compile("com.fasterxml.jackson.core", "jackson-databind", "2.9.7")
+    compile("com.fasterxml.jackson.module", "jackson-module-kotlin", "2.9.7")
 }
 
 application {
