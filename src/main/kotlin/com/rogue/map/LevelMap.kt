@@ -52,7 +52,7 @@ data class LevelMap(val xSize: Int, val ySize: Int, val cells: ArrayList<Cell> =
 
     fun add(point: Point, actor: Actor): Boolean {
         require(point.x in 0 until xSize) { "Point exceeds borders of map by an x-axis" }
-        require(point.y in 0 until xSize) { "Point exceeds borders of map by a y-axis" }
+        require(point.y in 0 until ySize) { "Point exceeds borders of map by a y-axis" }
 
         if (contains(point)) return false
 

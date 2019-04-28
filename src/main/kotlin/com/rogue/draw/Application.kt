@@ -7,7 +7,7 @@ object Application {
     val ui by lazy {
         SwingApplications.startTileGrid(
                 AppConfigs.newConfig()
-                        .withSize(Sizes.create(GameConfig.sizeX, GameConfig.sizeY))
+                        .withSize(Sizes.create(GameConfig.screenSizeX, GameConfig.screenSizeY))
                         .withTitle("XVOR")
                         .build())
     }

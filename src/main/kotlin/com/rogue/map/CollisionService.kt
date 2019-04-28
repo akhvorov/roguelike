@@ -32,11 +32,13 @@ object CollisionService {
 
 
         if (toActor.health.isDead) {
+            fromActor.stats.killed++
             map.remove(toActor)
         } else {
             resultMove = Move.STAY
         }
         if (fromActor.health.isDead) {
+            toActor.stats.killed++
             map.remove(fromActor)
             resultMove = Move.STAY
         }

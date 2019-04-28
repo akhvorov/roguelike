@@ -8,7 +8,19 @@ import java.util.*
 
 
 @Serializable
-data class Actor(val type: Type, val health: Health, val damage: Int, val face: Char, val id: String = UUID.randomUUID().toString()) {
+data class Actor(val type: Type, val health: Health, val defaultDamage: Int, val face: Char, val stats: Stats = Stats(), val id: String = UUID.randomUUID().toString()) {
+    val damage: Int
+        get() = defaultDamage + stats.additionalDamage
+
+    @Serializable
+    data class Stats(var killed: Int = 0) {
+        val level: Int
+            get() = killed / 5
+
+        val additionalDamage
+            get() = level / 2
+    }
+
     @Serializable
     data class Health(val destroyable: Boolean, var hp: Int) {
         val isDead: Boolean

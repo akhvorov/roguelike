@@ -50,6 +50,7 @@ object Game {
                 LevelMap.current.move(actor, realMove)
             }
 
+            GameScreen.updateHeroPanel()
             Thread.sleep(100)
         }
     }

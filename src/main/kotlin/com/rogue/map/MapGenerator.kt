@@ -10,9 +10,9 @@ import kotlin.random.Random
 
 object MapGenerator {
     fun generateInitialMap(): LevelMap {
-        val map = LevelMap(GameConfig.sizeX, GameConfig.sizeY)
+        val map = LevelMap(GameConfig.mapSizeX, GameConfig.mapSizeY)
 
-        val generatedMap = generateInitialMap(GameConfig.sizeX, GameConfig.sizeY)
+        val generatedMap = generateInitialMap(GameConfig.mapSizeX, GameConfig.mapSizeY)
         for ((x, isWallArr) in generatedMap.withIndex()) {
             for ((y, isWall) in isWallArr.withIndex()) {
                 if (isWall) {
