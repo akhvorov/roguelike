@@ -25,19 +25,20 @@ object CollisionService {
     }
 
     private fun processMoveOnActor(fromActor: Actor, toActor: Actor, move: Move, map: LevelMap): Move {
-        fromActor.health.hp -= toActor.damage
-        toActor.health.hp -= fromActor.damage
+        fromActor.health.defaultHp -= toActor.damage
+        toActor.health.defaultHp -= fromActor.damage
 
         var resultMove: Move = move
 
 
-        if (toActor.health.isDead) {
+        if (toActor.isDead) {
             fromActor.stats.killed++
+            toActor.affect(fromActor)
             map.remove(toActor)
         } else {
             resultMove = Move.STAY
         }
-        if (fromActor.health.isDead) {
+        if (fromActor.isDead) {
             toActor.stats.killed++
             map.remove(fromActor)
             resultMove = Move.STAY

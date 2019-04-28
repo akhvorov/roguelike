@@ -1,16 +1,31 @@
 package com.rogue.actor
 
 import com.rogue.actor.enemy.EnemyStrategy
+import com.rogue.actor.inventory.Armor
+import com.rogue.actor.inventory.Knife
 import com.rogue.map.LevelMap
 import com.rogue.utils.Move
 import kotlinx.serialization.Serializable
 import java.util.*
+import kotlin.collections.HashSet
 
 
 @Serializable
-data class Actor(val type: Type, val health: Health, val defaultDamage: Int, val face: Char, val stats: Stats = Stats(), val id: String = UUID.randomUUID().toString()) {
+data class Actor(val type: Type, val health: Health, val defaultDamage: Int, val face: Char, val stats: Stats = Stats(), val inventory: Inventory = Inventory(),
+                 val id: String = UUID.randomUUID().toString()) {
     val damage: Int
-        get() = defaultDamage + stats.additionalDamage
+        get() = defaultDamage + stats.additionalDamage + inventory.equippedKnife.damage
+
+    val hp: Int
+        get() = health.defaultHp + inventory.equippedArmor.hp
+
+
+    val isDead: Boolean
+        get() = hp <= 0
+
+    @Serializable
+    data class Inventory(var equippedKnife: Knife = Knife(0), val knives: HashSet<Knife> = HashSet(),
+                         var equippedArmor: Armor = Armor(0), val armors: HashSet<Armor> = HashSet())
 
     @Serializable
     data class Stats(var killed: Int = 0) {
@@ -22,10 +37,7 @@ data class Actor(val type: Type, val health: Health, val defaultDamage: Int, val
     }
 
     @Serializable
-    data class Health(val destroyable: Boolean, var hp: Int) {
-        val isDead: Boolean
-            get() = hp <= 0
-    }
+    data class Health(val destroyable: Boolean, var defaultHp: Int)
 
     //Why enum and not polymorphism?
     //This is the simplest way to make state serializable.
@@ -34,7 +46,9 @@ data class Actor(val type: Type, val health: Health, val defaultDamage: Int, val
         Wall,
         BraveEnemy,
         CowardEnemy,
-        OtherEnemy
+        OtherEnemy,
+        KnifeInventory,
+        ArmorInventory
     }
 
     fun act(levelMap: LevelMap): Move = when (type) {
@@ -43,6 +57,15 @@ data class Actor(val type: Type, val health: Health, val defaultDamage: Int, val
         Type.BraveEnemy -> EnemyStrategy.Brave.act(this, levelMap)
         Type.CowardEnemy -> EnemyStrategy.Coward.act(this, levelMap)
         Type.OtherEnemy -> EnemyStrategy.NotMyBusiness.act(this, levelMap)
+        Type.KnifeInventory -> Move.STAY
+        Type.ArmorInventory -> Move.STAY
+    }
+
+    fun affect(actor: Actor) {
+        when (type) {
+            Type.KnifeInventory -> actor.inventory.knives += Knife.random()
+            Type.ArmorInventory -> actor.inventory.armors += Armor.random()
+        }
     }
 
     //Override with UUID usage only

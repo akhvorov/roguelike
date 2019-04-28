@@ -4,6 +4,7 @@ import com.rogue.GameConfig
 import com.rogue.actor.PlayerActor
 import com.rogue.actor.WallActor
 import com.rogue.actor.enemy.EnemyActor
+import com.rogue.actor.inventory.Inventories
 import com.rogue.utils.Point
 import com.rogue.utils.on
 import kotlin.random.Random
@@ -16,7 +17,7 @@ object MapGenerator {
         for ((x, isWallArr) in generatedMap.withIndex()) {
             for ((y, isWall) in isWallArr.withIndex()) {
                 if (isWall) {
-                    map.add(x on y, WallActor.default)
+                    map.add(x on y, WallActor.default())
                 }
             }
         }
@@ -24,6 +25,7 @@ object MapGenerator {
         map.add(map.getFree().random(), PlayerActor.default)
 
         EnemyActor.populateMap(map)
+        Inventories.populateMap(map)
 
         return map
     }

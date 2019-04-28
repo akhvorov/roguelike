@@ -15,6 +15,8 @@ object GameConfig {
     const val startHeroDamage = 2
 
 
+    const val knives = 3
+    const val armors = 3
     const val cowards = 5
     const val braves = 15
     const val others = 5
