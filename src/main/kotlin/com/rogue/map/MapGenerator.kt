@@ -1,52 +1,31 @@
-package com.rogue
+package com.rogue.map
 
-import com.rogue.strategies.PlayerStrategy
-import java.lang.IllegalStateException
-import kotlin.math.sqrt
+import com.rogue.GameConfig
+import com.rogue.actor.PlayerActor
+import com.rogue.actor.WallActor
+import com.rogue.utils.Point
+import com.rogue.utils.on
 import kotlin.random.Random
 
 object MapGenerator {
-    private const val minSize = 4
+    fun generateInitialMap(): LevelMap {
+        val map = LevelMap(GameConfig.sizeX, GameConfig.sizeY)
 
-    fun generateWorld(level: Int): WorldMap {
-        val walls = generateWalls(level)
-        val actors = generateActors(walls)
-        return WorldMap(walls, actors)
-    }
+        val generatedMap = generateInitialMap(GameConfig.sizeX, GameConfig.sizeY)
+        for ((x, isWallArr) in generatedMap.withIndex()) {
+            for ((y, isWall) in isWallArr.withIndex()) {
+                if (isWall) {
+                    map.add(x on y, WallActor())
+                }
+            }
+        }
 
-    private fun generateActors(map: MutableList<MutableList<Boolean>>): MutableList<Actor> {
-        val actors: MutableList<Actor> = ArrayList()
-        actors.add(player(map))
-        actors.sort()
-        return actors
-    }
+        map.add(1 on 1, PlayerActor)
 
-    private fun generateWalls(level: Int): MutableList<MutableList<Boolean>> {
-        val height = Random.nextInt(minSize, (7 * sqrt(level.toDouble() + 1)).toInt())
-        val width = Random.nextInt(minSize, (10 * sqrt(level.toDouble() + 1)).toInt())
-        val map = generateWalls(height, width)
         return map
     }
 
-    private fun player(map: MutableList<MutableList<Boolean>>): Actor {
-        val point = randomEmptyPoint(map) ?: throw IllegalStateException("No empty space for actor")
-        return Actor(point, '4', Drawable.Priority.PLAYER, PlayerStrategy)
-    }
-
-    private fun randomEmptyPoint(map: MutableList<MutableList<Boolean>>): Point? {
-        var num = 0
-        while (num < map.size * map[0].size) {
-            val h = Random.nextInt(map.size)
-            val w = Random.nextInt(map[h].size)
-            if (!map[h][w]) {
-                return Point(h, w)
-            }
-            num++
-        }
-        return null
-    }
-
-    private fun generateWalls(height: Int, width: Int): MutableList<MutableList<Boolean>> {
+    private fun generateInitialMap(height: Int, width: Int): MutableList<MutableList<Boolean>> {
         val map: MutableList<MutableList<Boolean>> = ArrayList()
         initMap(map, height, width)
         addPerimeterWalls(map, height, width)
@@ -98,7 +77,7 @@ object MapGenerator {
     private fun randomNeighbourPoint(point: Point, map: List<List<Boolean>>): Point {
         while (true) {
             val rand = Random.nextInt(9)
-            val newPoint = Point.add(point, Point(rand / 3 - 1, rand % 3 - 1))
+            val newPoint = point + Point(rand / 3 - 1, rand % 3 - 1)
             if (point != newPoint && insideMap(map, newPoint.x, newPoint.y)) {
                 return newPoint
             }
@@ -118,8 +97,8 @@ object MapGenerator {
 
     private fun haveNotNeighbours(map: List<List<Boolean>>, height: Int, width: Int): Boolean {
         var haveNeighbours = true
-        for (h in height-1..height+1) {
-            for (w in width-1..width+1) {
+        for (h in height - 1..height + 1) {
+            for (w in width - 1..width + 1) {
                 if (h >= 0 && h < map.size && w >= 0 && w < map[h].size && !(h == height && w == width)) {
                     haveNeighbours = haveNeighbours && !map[h][w]
                 }
