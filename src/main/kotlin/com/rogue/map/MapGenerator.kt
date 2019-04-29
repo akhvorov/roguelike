@@ -29,7 +29,7 @@ object MapGenerator {
         val map: MutableList<MutableList<Boolean>> = ArrayList()
         initMap(map, height, width)
         addPerimeterWalls(map, height, width)
-        while (randomWalkWall(map, 0.1, 2)) {
+        while (randomWalkWall(map, 0.1, 5)) {
 
         }
         return map
@@ -61,7 +61,7 @@ object MapGenerator {
         while (Random.nextDouble() > pStop) {
             var iters = 0
             var nextPoint = randomNeighbourPoint(prevPoint, map)
-            while (iters < iterNum && !map[nextPoint.x][nextPoint.y] && haveNotNeighbours(map, nextPoint.x, nextPoint.y)) {
+            while (iters < iterNum && (map[nextPoint.x][nextPoint.y] || countNeighbours(map, nextPoint.x, nextPoint.y) > 2)) {
                 nextPoint = randomNeighbourPoint(prevPoint, map)
                 iters++
             }
@@ -84,27 +84,30 @@ object MapGenerator {
         }
     }
 
+    //TODO: start from edge
     private fun selectPointForWallStart(map: List<List<Boolean>>, iterNum: Int = 10): Point? {
-        for (i in 0..iterNum) {
+        for (i in 1..iterNum) {
             val h = Random.nextInt(map.size)
             val w = Random.nextInt(map[h].size)
-            if (!onEdge(map, h, w) && !haveNotNeighbours(map, h, w)) {
+            if (!onEdge(map, h, w) && !haveNeighbours(map, h, w)) {
                 return Point(h, w)
             }
         }
         return null
     }
 
-    private fun haveNotNeighbours(map: List<List<Boolean>>, height: Int, width: Int): Boolean {
-        var haveNeighbours = true
+    private fun haveNeighbours(map: List<List<Boolean>>, height: Int, width: Int): Boolean {
+        return countNeighbours(map, height, width) != 0
+    }
+
+    private fun countNeighbours(map: List<List<Boolean>>, height: Int, width: Int): Int {
+        var count = 0
         for (h in height - 1..height + 1) {
             for (w in width - 1..width + 1) {
-                if (h >= 0 && h < map.size && w >= 0 && w < map[h].size && !(h == height && w == width)) {
-                    haveNeighbours = haveNeighbours && !map[h][w]
-                }
+                count += if (insideMap(map, h, w) && !(h == height && w == width) && map[h][w]) 1 else 0
             }
         }
-        return haveNeighbours
+        return count
     }
 
     private fun onEdge(map: List<List<Any>>, height: Int, width: Int): Boolean {
