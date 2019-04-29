@@ -11,8 +11,7 @@ object MapGenerator {
     fun generateInitialMap(): LevelMap {
         val map = LevelMap(GameConfig.mapSizeX, GameConfig.mapSizeY)
 
-//        val generatedMap = generateInitialMap(GameConfig.mapSizeX, GameConfig.mapSizeY)
-        val mazeGenerator = MazeGenerator(GameConfig.sizeX / 2, GameConfig.sizeY / 2)
+        val mazeGenerator = MazeGenerator(GameConfig.mapSizeY / 2, GameConfig.mapSizeX / 2)
         mazeGenerator.generate(0, 0)
         val generatedMap = mazeGenerator.get()
         for ((x, isWallArr) in generatedMap.withIndex()) {
