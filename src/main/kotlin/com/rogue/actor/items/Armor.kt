@@ -1,4 +1,4 @@
-package com.rogue.actor.inventory
+package com.rogue.actor.items
 
 import kotlinx.serialization.Serializable
 import java.util.*

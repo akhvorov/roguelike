@@ -69,5 +69,5 @@ class MazeGenerator(val x: Int, val y: Int) {
         }
     }
 
-    private fun between(v: Int, upper: Int) = v in 0..(upper - 1)
+    private fun between(v: Int, upper: Int) = v in 0 until upper
 }

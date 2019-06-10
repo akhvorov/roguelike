@@ -4,8 +4,8 @@ import com.rogue.Game
 import com.rogue.GameConfig
 import com.rogue.actor.Actor
 import com.rogue.actor.PlayerActor
-import com.rogue.actor.inventory.Armor
-import com.rogue.actor.inventory.Knife
+import com.rogue.actor.items.Armor
+import com.rogue.actor.items.Knife
 import com.rogue.map.LevelMap
 import com.rogue.state.StateService
 import com.rogue.utils.Move
@@ -20,7 +20,9 @@ import org.hexworks.zircon.api.graphics.Layer
 import org.hexworks.zircon.api.uievent.KeyCode
 import org.hexworks.zircon.api.uievent.KeyboardEventType
 
-object GameScreen {
+object GameScreen : Screen {
+    val gameScreen by lazy { Screens.createScreenFor(Application.ui) }
+
     data class ActorPresentation(val layer: Layer, val tile: CharacterTile)
 
     private var initialized = false
@@ -122,10 +124,10 @@ object GameScreen {
         }
     }
 
-    fun init() {
+    override fun init() {
         if (initialized) return
 
-        Application.gameScreen.onKeyboardEvent(KeyboardEventType.KEY_PRESSED) { event, _ ->
+        gameScreen.onKeyboardEvent(KeyboardEventType.KEY_PRESSED) { event, _ ->
             when (event.code) {
                 KeyCode.UP -> {
                     PlayerActor.move(Move.UP)
@@ -152,13 +154,13 @@ object GameScreen {
             }
         }
 
-        Application.gameScreen.addComponent(Map.panel)
-        Application.gameScreen.addComponent(Hero.panel)
+        gameScreen.addComponent(Map.panel)
+        gameScreen.addComponent(Hero.panel)
 
         initialized = true
     }
 
-    fun display() = Application.gameScreen.display()
+    override fun display() = gameScreen.display()
 
     fun updateHeroPanel() {
         val hero = LevelMap.current.getPlayerCell().actor
@@ -201,7 +203,7 @@ object GameScreen {
 
     fun removeActor(actor: Actor): Boolean {
         val presentation = actorsOnScene[actor] ?: return false
-        Application.gameScreen.removeLayer(presentation.layer)
+        gameScreen.removeLayer(presentation.layer)
         actorsOnScene.remove(actor)
         return true
     }
@@ -221,7 +223,7 @@ object GameScreen {
                 .build()
                 .fill(actorTile)
 
-        Application.gameScreen.pushLayer(layer)
+        gameScreen.pushLayer(layer)
 
         actorsOnScene[actor] = ActorPresentation(layer, actorTile)
 

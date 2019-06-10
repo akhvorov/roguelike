@@ -11,7 +11,4 @@ object Application {
                         .withTitle("XVOR")
                         .build())
     }
-
-    val menuScreen by lazy { Screens.createScreenFor(ui) }
-    val gameScreen by lazy { Screens.createScreenFor(ui) }
 }

@@ -3,16 +3,19 @@ package com.rogue.draw
 import com.rogue.Game
 import com.rogue.state.StateService
 import org.hexworks.zircon.api.Components
+import org.hexworks.zircon.api.Screens
 import org.hexworks.zircon.api.UIEventResponses
 import org.hexworks.zircon.api.extensions.onMouseEvent
 import org.hexworks.zircon.api.graphics.BoxType
 import org.hexworks.zircon.api.resource.ColorThemeResource
 import org.hexworks.zircon.api.uievent.MouseEventType
 
-object MenuScreen {
+object MenuScreen : Screen {
+    val menuScreen by lazy { Screens.createScreenFor(Application.ui) }
+
     private var initialized: Boolean = false
 
-    fun init() {
+    override fun init() {
         if (initialized) return
 
         val menuPanel = Components.panel()
@@ -48,10 +51,10 @@ object MenuScreen {
 
         menuPanel.applyColorTheme(ColorThemeResource.TRON.getTheme())
 
-        Application.menuScreen.addComponent(menuPanel)
+        menuScreen.addComponent(menuPanel)
 
         initialized = true
     }
 
-    fun display() = Application.menuScreen.display()
+    override fun display() = menuScreen.display()
 }

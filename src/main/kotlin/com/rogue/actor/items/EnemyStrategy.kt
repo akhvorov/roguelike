@@ -1,4 +1,4 @@
-package com.rogue.actor.enemy
+package com.rogue.actor.items
 
 import com.rogue.actor.Actor
 import com.rogue.map.LevelMap

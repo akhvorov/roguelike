@@ -3,8 +3,7 @@ package com.rogue.map
 import com.rogue.GameConfig
 import com.rogue.actor.PlayerActor
 import com.rogue.actor.WallActor
-import com.rogue.actor.enemy.EnemyActor
-import com.rogue.actor.inventory.Inventories
+import com.rogue.actor.items.Items
 import com.rogue.utils.on
 
 object MapGenerator {
@@ -24,8 +23,7 @@ object MapGenerator {
 
         map.add(map.getFree().random(), PlayerActor.default)
 
-        EnemyActor.populateMap(map)
-        Inventories.populateMap(map)
+        Items.populateMap(map)
 
         return map
     }

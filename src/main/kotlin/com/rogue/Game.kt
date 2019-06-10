@@ -15,10 +15,10 @@ object Game {
     fun eventLoop() {
         while (true) {
             if (isMenu) {
-                Application.menuScreen.display()
+                MenuScreen.menuScreen.display()
                 runMenu()
             } else {
-                Application.gameScreen.display()
+                GameScreen.gameScreen.display()
                 runLevel()
             }
         }

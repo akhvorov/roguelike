@@ -1,8 +1,8 @@
 package com.rogue.actor
 
-import com.rogue.actor.enemy.EnemyStrategy
-import com.rogue.actor.inventory.Armor
-import com.rogue.actor.inventory.Knife
+import com.rogue.actor.items.EnemyStrategy
+import com.rogue.actor.items.Armor
+import com.rogue.actor.items.Knife
 import com.rogue.map.LevelMap
 import com.rogue.utils.Move
 import kotlinx.serialization.Serializable
