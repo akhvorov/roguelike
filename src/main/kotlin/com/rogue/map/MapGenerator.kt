@@ -6,7 +6,15 @@ import com.rogue.actor.WallActor
 import com.rogue.actor.items.Items
 import com.rogue.utils.on
 
+/**
+ * Map generator
+ */
 object MapGenerator {
+    /**
+     * Generate level map with actors
+     *
+     * @return level map
+     */
     fun generateInitialMap(): LevelMap {
         val map = LevelMap(GameConfig.mapSizeX, GameConfig.mapSizeY)
 

@@ -35,6 +35,7 @@ dependencies {
     compile("com.fasterxml.jackson.core", "jackson-core", "2.9.7")
     compile("com.fasterxml.jackson.core", "jackson-databind", "2.9.7")
     compile("com.fasterxml.jackson.module", "jackson-module-kotlin", "2.9.7")
+    compile("org.junit.jupiter", "junit-jupiter-api", "5.0.2")
 }
 
 application {

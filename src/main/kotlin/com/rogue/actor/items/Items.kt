@@ -4,13 +4,21 @@ import com.rogue.GameConfig
 import com.rogue.actor.Actor
 import com.rogue.map.LevelMap
 
+/**
+ * Util class for populate a map with items
+ */
 object Items {
+    /**
+     * Add items to level map
+     *
+     * @param levelMap level map
+     */
     fun populateMap(levelMap: LevelMap) {
         for (i in 1..GameConfig.knives) {
-            levelMap.add(levelMap.getFree().random(), Items.getKnife())
+            levelMap.add(levelMap.getFree().random(), getKnife())
         }
         for (i in 1..GameConfig.armors) {
-            levelMap.add(levelMap.getFree().random(), Items.getArmor())
+            levelMap.add(levelMap.getFree().random(), getArmor())
         }
         for (i in 1..GameConfig.braves) {
             levelMap.add(levelMap.getFree().random(), EnemyStrategy.Brave.default())

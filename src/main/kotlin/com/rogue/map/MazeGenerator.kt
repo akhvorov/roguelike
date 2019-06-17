@@ -1,8 +1,17 @@
 package com.rogue.map
 
-class MazeGenerator(val x: Int, val y: Int) {
+/**
+ * Generator of maze (only walls)
+ */
+class MazeGenerator(private val x: Int, private val y: Int) {
     private val maze = Array(x) { IntArray(y) }
 
+    /**
+     * Generate a maze recursively
+     *
+     * @param cx a horizontal coordinate
+     * @param cy a vertical coordinate
+     */
     fun generate(cx: Int, cy: Int) {
         Direction.values().shuffle().forEach {
             val nx = cx + it.dx
@@ -15,6 +24,11 @@ class MazeGenerator(val x: Int, val y: Int) {
         }
     }
 
+    /**
+     * Get boolean 2D-array of walls in the maze
+     *
+     * @return maze
+     */
     fun get(): MutableList<MutableList<Boolean>> {
         val map = ArrayList<MutableList<Boolean>>()
         for (i in 0 until y) {
@@ -45,12 +59,20 @@ class MazeGenerator(val x: Int, val y: Int) {
         return map
     }
 
+    /**
+     * Shuffle array elements
+     *
+     * @return a shuffled array
+     */
     private inline fun <reified T> Array<T>.shuffle(): Array<T> {
         val list = toMutableList()
         list.shuffle()
         return list.toTypedArray()
     }
 
+    /**
+     * Direction with bit coding
+     */
     private enum class Direction(val bit: Int, val dx: Int, val dy: Int) {
         UP(1, 0, -1),
         DOWN(2, 0, 1),
@@ -69,5 +91,11 @@ class MazeGenerator(val x: Int, val y: Int) {
         }
     }
 
+    /**
+     * Is number between zero and another integer
+     *
+     * @param v target number
+     * @param v upper
+     */
     private fun between(v: Int, upper: Int) = v in 0 until upper
 }

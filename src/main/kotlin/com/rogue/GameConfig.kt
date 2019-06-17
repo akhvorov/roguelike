@@ -1,5 +1,8 @@
 package com.rogue
 
+/**
+ * Game configuration
+ */
 object GameConfig {
     const val screenSizeX = 61
     const val screenSizeY = 61

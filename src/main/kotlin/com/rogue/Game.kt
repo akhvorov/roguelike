@@ -5,13 +5,22 @@ import com.rogue.map.CollisionService
 import com.rogue.map.LevelMap
 import com.rogue.state.StateService
 
+/**
+ * Game entry point
+ */
 fun main() {
     Game.eventLoop()
 }
 
+/**
+ * Object for game launch
+ */
 object Game {
     var isMenu = true
 
+    /**
+     * Main event loop
+     */
     fun eventLoop() {
         while (true) {
             if (isMenu) {
@@ -24,6 +33,9 @@ object Game {
         }
     }
 
+    /**
+     * Run menu of game
+     */
     private fun runMenu() {
         MenuScreen.init()
         MenuScreen.display()
@@ -32,6 +44,9 @@ object Game {
         }
     }
 
+    /**
+     * Run level of game
+     */
     private fun runLevel() {
         StateService.loadOrCreateMap()
 

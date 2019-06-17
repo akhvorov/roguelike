@@ -20,6 +20,9 @@ import org.hexworks.zircon.api.graphics.Layer
 import org.hexworks.zircon.api.uievent.KeyCode
 import org.hexworks.zircon.api.uievent.KeyboardEventType
 
+/**
+ * Screen for game
+ */
 object GameScreen : Screen {
     val gameScreen by lazy { Screens.createScreenFor(Application.ui) }
 
@@ -38,6 +41,9 @@ object GameScreen : Screen {
                 .build()
     }
 
+    /**
+     * Creating an interface for visual display of game statistics (Hero Panel)
+     */
     object Hero {
         val panel = Components.panel()
                 .withTitle("Hero")
@@ -124,6 +130,9 @@ object GameScreen : Screen {
         }
     }
 
+    /**
+     * Initialize game screen
+     */
     override fun init() {
         if (initialized) return
 
@@ -162,6 +171,9 @@ object GameScreen : Screen {
 
     override fun display() = gameScreen.display()
 
+    /**
+     * Update game statistic
+     */
     fun updateHeroPanel() {
         val hero = LevelMap.current.getPlayerCell().actor
         Hero.healthValue.text = hero.hp.toString()
@@ -190,6 +202,14 @@ object GameScreen : Screen {
         actorsOnScene.clear()
     }
 
+    /**
+     * Move actor
+     *
+     * @param actor actor to move
+     * @param move direction to move
+     *
+     * @return is moved
+     */
     fun moveActor(actor: Actor, move: Move): Boolean {
         val presentation = actorsOnScene[actor] ?: return false
         when (move) {
@@ -201,6 +221,12 @@ object GameScreen : Screen {
         return true
     }
 
+    /**
+     * Remove an actor
+     *
+     * @param actor actor to remove
+     * @return is removed
+     */
     fun removeActor(actor: Actor): Boolean {
         val presentation = actorsOnScene[actor] ?: return false
         gameScreen.removeLayer(presentation.layer)
@@ -208,6 +234,13 @@ object GameScreen : Screen {
         return true
     }
 
+    /**
+     * Register a new actor in game
+     *
+     * @param point position for an actor
+     * @param actor a registered actor
+     * @return actor presentation
+     */
     fun registerActor(point: Point, actor: Actor): ActorPresentation {
         if (actor in actorsOnScene) return actorsOnScene[actor]!!
 

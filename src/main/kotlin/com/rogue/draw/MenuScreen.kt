@@ -10,11 +10,17 @@ import org.hexworks.zircon.api.graphics.BoxType
 import org.hexworks.zircon.api.resource.ColorThemeResource
 import org.hexworks.zircon.api.uievent.MouseEventType
 
+/**
+ * Screen with menu
+ */
 object MenuScreen : Screen {
     val menuScreen by lazy { Screens.createScreenFor(Application.ui) }
 
     private var initialized: Boolean = false
 
+    /**
+     * Initialize menu screen
+     */
     override fun init() {
         if (initialized) return
 
@@ -56,5 +62,8 @@ object MenuScreen : Screen {
         initialized = true
     }
 
+    /**
+     * Display menu screen
+     */
     override fun display() = menuScreen.display()
 }

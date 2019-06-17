@@ -9,7 +9,9 @@ import kotlinx.serialization.Serializable
 import java.util.*
 import kotlin.collections.HashSet
 
-
+/**
+ * Actor is any object on a map
+ */
 @Serializable
 data class Actor(val type: Type, val health: Health, val defaultDamage: Int, val face: Char, val stats: Stats = Stats(), val inventory: Inventory = Inventory(),
                  val id: String = UUID.randomUUID().toString()) {
@@ -23,10 +25,16 @@ data class Actor(val type: Type, val health: Health, val defaultDamage: Int, val
     val isDead: Boolean
         get() = hp <= 0
 
+    /**
+     * Inventory of actor
+     */
     @Serializable
     data class Inventory(var equippedKnife: Knife = Knife(0), val knives: HashSet<Knife> = HashSet(),
                          var equippedArmor: Armor = Armor(0), val armors: HashSet<Armor> = HashSet())
 
+    /**
+     * Statistics of actor
+     */
     @Serializable
     data class Stats(var killed: Int = 0) {
         val level: Int
@@ -41,6 +49,9 @@ data class Actor(val type: Type, val health: Health, val defaultDamage: Int, val
 
     //Why enum and not polymorphism?
     //This is the simplest way to make state serializable.
+    /**
+     * Type of actor
+     */
     enum class Type {
         Player,
         Wall,
@@ -51,6 +62,12 @@ data class Actor(val type: Type, val health: Health, val defaultDamage: Int, val
         ArmorInventory
     }
 
+    /**
+     * Act
+     *
+     * @param levelMap level map, where actor live
+     * @return direction to move
+     */
     fun act(levelMap: LevelMap): Move = when (type) {
         Type.Player -> PlayerActor.act()
         Type.Wall -> Move.STAY
@@ -61,6 +78,11 @@ data class Actor(val type: Type, val health: Health, val defaultDamage: Int, val
         Type.ArmorInventory -> Move.STAY
     }
 
+    /**
+     * Interact with another actor
+     *
+     * @param actor actor to interact
+     */
     fun affect(actor: Actor) {
         when (type) {
             Type.KnifeInventory -> actor.inventory.knives += Knife.random()

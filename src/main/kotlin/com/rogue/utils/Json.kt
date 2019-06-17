@@ -4,6 +4,9 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 
+/**
+ * Json serialization utils
+ */
 object Json {
     val jsonMapper = Json(JsonConfiguration.Stable)
 
