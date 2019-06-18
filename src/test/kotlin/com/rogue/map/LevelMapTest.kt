@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class LevelMapTest {
     private val size = 5
     private val actor = Actor(Actor.Type.BraveEnemy, Actor.Health(true, 2), 1, 'a')
-    var map = LevelMap(size, size)
+    private var map = LevelMap(size, size)
 
     @BeforeEach
     fun initMap() {
