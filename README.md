@@ -89,8 +89,9 @@ Java Virtual Machine версии не ниже 1.8.
 [![states][MainStateDiogram]][MainStateDiogram_url]
 
 
-[Use_case_diagram]: https://github.com/akhvorov/roguelike/blob/design-documents/docs/design/Use-Case%20Diagram.png
-[Use_case_diagram_url]: https://raw.githubusercontent.com/akhvorov/roguelike/design-documents/docs/design/Use-Case%20Diagram.png
+[Use_case_diagram]: https://raw.githubusercontent.com/akhvorov/roguelike/dev-1/docs/design/UseCaseDiagram.png
+[Use_case_diagram_url]: https://raw.githubusercontent.com/akhvorov/roguelike/dev-1/docs/design/UseCaseDiagram.png
+
 [UML_class_diagram]: https://github.com/akhvorov/roguelike/blob/design-documents/docs/design/UML%20Class%20Diagram.png
 [UML_class_diagram_url]: https://raw.githubusercontent.com/akhvorov/roguelike/design-documents/docs/design/UML%20Class%20Diagram.png
 
