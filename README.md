@@ -63,7 +63,7 @@ Java Virtual Machine версии не ниже 1.8.
 на основе текущего состояния мира.
 
 ### Диаграмма компонент
-**ссылка на Д Комп**
+[![Component][Component_Diagram]][Component_Diagram_url]
 
 ### Диаграмма классов
 Более детально архитектуру можно видеть на диаграмме классов  
@@ -91,6 +91,9 @@ Java Virtual Machine версии не ниже 1.8.
 
 [Use_case_diagram]: https://raw.githubusercontent.com/akhvorov/roguelike/dev-1/docs/design/UseCaseDiagram.png
 [Use_case_diagram_url]: https://raw.githubusercontent.com/akhvorov/roguelike/dev-1/docs/design/UseCaseDiagram.png
+
+[Component_Diagram]: https://raw.githubusercontent.com/akhvorov/roguelike/dev-1/docs/design/ComponentDiagram.png
+[Component_Diagram_url]: https://raw.githubusercontent.com/akhvorov/roguelike/dev-1/docs/design/ComponentDiagram.png
 
 [UML_class_diagram]: https://github.com/akhvorov/roguelike/blob/design-documents/docs/design/UML%20Class%20Diagram.png
 [UML_class_diagram_url]: https://raw.githubusercontent.com/akhvorov/roguelike/design-documents/docs/design/UML%20Class%20Diagram.png
