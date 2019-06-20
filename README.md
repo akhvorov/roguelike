@@ -1,4 +1,6 @@
 # Roguelike
+[![Build Status](https://travis-ci.org/akhvorov/roguelike.svg?branch=dev-1)](https://travis-ci.org/akhvorov/roguelike)  
+
 Игра **Roguelike**. Для курса по Software Design.
 
 [![Build Status](https://travis-ci.org/akhvorov/roguelike.svg?branch=dev-1)](https://travis-ci.org/akhvorov/roguelike)  
