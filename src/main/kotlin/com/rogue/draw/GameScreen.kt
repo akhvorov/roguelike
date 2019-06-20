@@ -1,13 +1,10 @@
 package com.rogue.draw
 
-import com.rogue.Game
 import com.rogue.GameConfig
-import com.rogue.actor.Actor
-import com.rogue.actor.PlayerActor
+import com.rogue.actor.*
 import com.rogue.actor.items.Armor
 import com.rogue.actor.items.Knife
 import com.rogue.map.LevelMap
-import com.rogue.state.StateService
 import com.rogue.utils.Move
 import com.rogue.utils.Point
 import org.hexworks.zircon.api.*
@@ -137,30 +134,15 @@ object GameScreen : Screen {
         if (initialized) return
 
         gameScreen.onKeyboardEvent(KeyboardEventType.KEY_PRESSED) { event, _ ->
-            when (event.code) {
-                KeyCode.UP -> {
-                    PlayerActor.move(Move.UP)
-                    UIEventResponses.processed()
-                }
-                KeyCode.DOWN -> {
-                    PlayerActor.move(Move.DOWN)
-                    UIEventResponses.processed()
-                }
-                KeyCode.LEFT -> {
-                    PlayerActor.move(Move.LEFT)
-                    UIEventResponses.processed()
-                }
-                KeyCode.RIGHT -> {
-                    PlayerActor.move(Move.RIGHT)
-                    UIEventResponses.processed()
-                }
-                KeyCode.ESCAPE -> {
-                    StateService.save()
-                    Game.isMenu = true
-                    UIEventResponses.processed()
-                }
-                else -> UIEventResponses.pass()
+            val command = when (event.code) {
+                KeyCode.UP -> UpCommand()
+                KeyCode.RIGHT -> RightCommand()
+                KeyCode.DOWN -> DownCommand()
+                KeyCode.LEFT -> LeftCommand()
+                KeyCode.SPACE -> SpaceCommand()
+                else -> IgnoreCommand()
             }
+            command.execute()
         }
 
         gameScreen.addComponent(Map.panel)
