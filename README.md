@@ -76,7 +76,7 @@ Java Virtual Machine версии не ниже 1.8.
 отображает то, что произошло в резултате.  
 Изменение во времени отображается на диаграмме последовательностей.
 ### Диаграмма последовательностей
-**ссылка на Д последовательностей**
+[![seq][seq_diagram]][seq_diagram_url]
 
 ### Диаграмма конечных автоматов
 Программа может находится в следующих состояниях: главное меню или основной 
@@ -99,8 +99,8 @@ Java Virtual Machine версии не ниже 1.8.
 [UML_class_diagram]: https://raw.githubusercontent.com/akhvorov/roguelike/dev-1/docs/design/ClassDiagram.png
 [UML_class_diagram_url]: https://raw.githubusercontent.com/akhvorov/roguelike/dev-1/docs/design/ClassDiagram.png
 
-[MainStateDiogram]: https://github.com/akhvorov/roguelike/blob/design-documents/docs/design/MainStateDiogram.png
-[MainStateDiogram_url]: https://raw.githubusercontent.com/akhvorov/roguelike/design-documents/docs/design/MainStateDiogram.png
+[seq_diagram]: https://raw.githubusercontent.com/akhvorov/roguelike/dev-1/docs/design/SequenceDiagram.png
+[seq_diagram_url]: https://raw.githubusercontent.com/akhvorov/roguelike/dev-1/docs/design/SequenceDiagram.png
 
 
 
