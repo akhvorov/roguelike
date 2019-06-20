@@ -68,6 +68,7 @@ Java Virtual Machine версии не ниже 1.8.
 ### Диаграмма классов
 Более детально архитектуру можно видеть на диаграмме классов  
 **ссылка на Д Классов**
+[![Class][UML_class_diagram]][UML_class_diagram_url]
 
 ## Последовательность актов системы и изменеие ее состояний
 Последовательность актов систмы во времени зависит от основного актора, 
@@ -95,8 +96,8 @@ Java Virtual Machine версии не ниже 1.8.
 [Component_Diagram]: https://raw.githubusercontent.com/akhvorov/roguelike/dev-1/docs/design/ComponentDiagram.png
 [Component_Diagram_url]: https://raw.githubusercontent.com/akhvorov/roguelike/dev-1/docs/design/ComponentDiagram.png
 
-[UML_class_diagram]: https://github.com/akhvorov/roguelike/blob/design-documents/docs/design/UML%20Class%20Diagram.png
-[UML_class_diagram_url]: https://raw.githubusercontent.com/akhvorov/roguelike/design-documents/docs/design/UML%20Class%20Diagram.png
+[UML_class_diagram]: https://raw.githubusercontent.com/akhvorov/roguelike/dev-1/docs/design/ClassDiagram.png
+[UML_class_diagram_url]: https://raw.githubusercontent.com/akhvorov/roguelike/dev-1/docs/design/ClassDiagram.png
 
 [MainStateDiogram]: https://github.com/akhvorov/roguelike/blob/design-documents/docs/design/MainStateDiogram.png
 [MainStateDiogram_url]: https://raw.githubusercontent.com/akhvorov/roguelike/design-documents/docs/design/MainStateDiogram.png
