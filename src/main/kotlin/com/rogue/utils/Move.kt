@@ -1,13 +1,15 @@
 package com.rogue.utils
 
+import java.util.*
+
 /**
  * Move direction
  */
 enum class Move {
     UP,
+    RIGHT,
     DOWN,
     LEFT,
-    RIGHT,
     STAY;
 
     /**
@@ -21,4 +23,9 @@ enum class Move {
             RIGHT -> LEFT
             STAY -> STAY
         }
+
+    fun nearest(): Set<Move> {
+        if (this == STAY) return setOf(STAY)
+        return HashSet(values().filter { Math.abs(it.ordinal % 4 - ordinal % 4) <= 1 && it != STAY })
+    }
 }

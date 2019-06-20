@@ -22,5 +22,6 @@ object GameConfig {
     const val armors = 3
     const val cowards = 5
     const val braves = 15
+    const val conjurers = 5
     const val others = 5
 }

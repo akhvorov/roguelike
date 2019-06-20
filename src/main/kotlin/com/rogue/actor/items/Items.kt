@@ -26,6 +26,9 @@ object Items {
         for (i in 1..GameConfig.cowards) {
             levelMap.add(levelMap.getFree().random(), EnemyStrategy.Coward.default())
         }
+        for (i in 1..GameConfig.conjurers) {
+            levelMap.add(levelMap.getFree().random(), getConjurer())
+        }
         for (i in 1..GameConfig.others) {
             levelMap.add(levelMap.getFree().random(), EnemyStrategy.NotMyBusiness.default())
         }
@@ -34,4 +37,6 @@ object Items {
     private fun getArmor() = Actor(Actor.Type.ArmorInventory, Actor.Health(true, 1), 0, 'H')
 
     private fun getKnife() = Actor(Actor.Type.KnifeInventory, Actor.Health(true, 1), 0, '!')
+
+    private fun getConjurer() = Actor(Actor.Type.Conjurer, Actor.Health(true, 1), 0, '~')
 }

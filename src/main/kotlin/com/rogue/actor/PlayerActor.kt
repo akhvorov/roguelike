@@ -7,6 +7,9 @@ import java.util.*
  * Player actor
  */
 object PlayerActor {
+    private val adjureDuration = 3
+    private var adjureTime = 0
+
     val default by lazy { Actor(Actor.Type.Player, Actor.Health(true, 100), 2, '@') }
 
     private val lazyMovements = ArrayDeque<Move>()
@@ -19,5 +22,16 @@ object PlayerActor {
     /**
      * Make action
      */
-    fun act() = lazyMovements.poll() ?: Move.STAY
+    fun act(): Move {
+        val realMove = lazyMovements.poll() ?: Move.STAY
+        if (adjureTime > 0) {
+            adjureTime--
+            return realMove.nearest().random()
+        }
+        return realMove
+    }
+
+    fun adjure() {
+        adjureTime = adjureDuration
+    }
 }

@@ -59,7 +59,8 @@ data class Actor(val type: Type, val health: Health, val defaultDamage: Int, val
         CowardEnemy,
         OtherEnemy,
         KnifeInventory,
-        ArmorInventory
+        ArmorInventory,
+        Conjurer
     }
 
     /**
@@ -73,6 +74,7 @@ data class Actor(val type: Type, val health: Health, val defaultDamage: Int, val
         Type.Wall -> Move.STAY
         Type.BraveEnemy -> EnemyStrategy.Brave.act(this, levelMap)
         Type.CowardEnemy -> EnemyStrategy.Coward.act(this, levelMap)
+        Type.Conjurer -> Move.STAY
         Type.OtherEnemy -> EnemyStrategy.NotMyBusiness.act(this, levelMap)
         Type.KnifeInventory -> Move.STAY
         Type.ArmorInventory -> Move.STAY
@@ -87,6 +89,7 @@ data class Actor(val type: Type, val health: Health, val defaultDamage: Int, val
         when (type) {
             Type.KnifeInventory -> actor.inventory.knives += Knife.random()
             Type.ArmorInventory -> actor.inventory.armors += Armor.random()
+            Type.Conjurer -> if (actor.type == Type.Player) PlayerActor.adjure()
         }
     }
 

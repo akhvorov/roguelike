@@ -15,7 +15,7 @@ class LevelMapTest {
 
     @BeforeEach
     fun initMap() {
-        map = LevelMap(5, 5)
+        map = LevelMap(size, size)
     }
 
     @Test
