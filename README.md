@@ -1,4 +1,4 @@
-# Roguelike
+# RogueLike
 [![Build Status](https://travis-ci.org/akhvorov/roguelike.svg?branch=dev-1)](https://travis-ci.org/akhvorov/roguelike)  
 
 Игра **Roguelike**. Для курса по Software Design.
@@ -87,7 +87,7 @@ Java Virtual Machine версии не ниже 1.8.
 в котором остаются все те же уровни, что и были. Во втором случае 
 добавляются новые уровни, и в последнам случае состояние не меняется и 
 программа в ожидании следующего хода.  
-[![states][MainStateDiogram]][MainStateDiogram_url]
+[![states][state_diagram]][state_diagram_url]
 
 
 [Use_case_diagram]: https://raw.githubusercontent.com/akhvorov/roguelike/dev-1/docs/design/UseCaseDiagram.png
@@ -101,6 +101,9 @@ Java Virtual Machine версии не ниже 1.8.
 
 [seq_diagram]: https://raw.githubusercontent.com/akhvorov/roguelike/dev-1/docs/design/SequenceDiagram.png
 [seq_diagram_url]: https://raw.githubusercontent.com/akhvorov/roguelike/dev-1/docs/design/SequenceDiagram.png
+
+[state_diagram]: https://raw.githubusercontent.com/akhvorov/roguelike/dev-1/docs/design/StateDiagram.png
+[state_diagram_url]: https://raw.githubusercontent.com/akhvorov/roguelike/dev-1/docs/design/StateDiagram.png
 
 
 
